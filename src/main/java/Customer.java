@@ -1,16 +1,16 @@
-import java.util.Enumeration;
-import java.util.Vector;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class Customer {
     private String _name;
-    private Vector _rentals = new Vector();
+    private List<Rental> _rentals = new LinkedList<>();
 
     public Customer(String name) {
         _name = name;
     }
 
     public void addRental(Rental arg) {
-        _rentals.addElement(arg);
+        _rentals.add(arg);
     }
 
     public String getName() {
@@ -18,13 +18,10 @@ public class Customer {
     }
 
     public String statement() {
-        Enumeration rentals = _rentals.elements();
         String result = "Rental Record for " + getName() + "\n";
-        while (rentals.hasMoreElements()) {
-            Rental rental = (Rental) rentals.nextElement();
-            result += "\t" + rental.getMovie().getTitle() + "\t"
-                    + rental.getCharge() + "\n";
-        }
+        result += _rentals.stream().map(rental ->
+                "\t" + rental.getMovie().getTitle() + "\t" + rental.getCharge() + "\n")
+                .collect(Collectors.joining());
         result += "Amount owed is " + getTotalCharge() + "\n";
         result += "You earned " + getTotalFrequentRenterPoints()
                 + " frequent renter points";
@@ -32,23 +29,11 @@ public class Customer {
     }
 
     private int getTotalFrequentRenterPoints(){
-        int result = 0;
-        Enumeration rentals = _rentals.elements();
-        while (rentals.hasMoreElements()) {
-            Rental rental = (Rental) rentals.nextElement();
-            result += rental.getFrequentRenterPoints();
-        }
-        return result;
+        return _rentals.stream().mapToInt(rental -> rental.getFrequentRenterPoints()).sum();
     }
 
     private double getTotalCharge(){
-        double result = 0;
-        Enumeration rentals = _rentals.elements();
-        while (rentals.hasMoreElements()) {
-            Rental rental = (Rental) rentals.nextElement();
-            result += rental.getCharge();
-        }
-        return result;
+        return _rentals.stream().mapToDouble(rental -> rental.getCharge()).sum();
     }
 
 }
