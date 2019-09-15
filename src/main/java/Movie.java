@@ -2,11 +2,13 @@ public class Movie {
     private String _title;
     private MovieType _movieType;
     private Price _price;
+    private AccumulatePoints _accumulatePoints;
 
     public Movie(String title, MovieType movieType) {
         _title = title;
         _movieType = movieType;
         setPrice(movieType);
+        setAccumulatePoints(movieType);
     }
 
     public MovieType getMovieType() {
@@ -27,6 +29,17 @@ public class Movie {
         }
     }
 
+    public void setAccumulatePoints(MovieType movieType){
+        switch (movieType){
+            case NEW_RELEASE:
+                _accumulatePoints = new NewReleaseAccumulatePoints();
+                break;
+            default:
+                _accumulatePoints = new AccumulatePoints();
+                break;
+        }
+    }
+
     public String getTitle() {
         return _title;
     }
@@ -36,9 +49,7 @@ public class Movie {
     }
 
     public int getFrequentRenterPoints(int daysRented) {
-        if ((getMovieType() == MovieType.NEW_RELEASE) && daysRented > 1)
-            return 2;
-        return 1;
+        return _accumulatePoints.getFrequentRenterPoints(daysRented);
     }
 
 }
