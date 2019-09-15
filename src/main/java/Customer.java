@@ -23,15 +23,14 @@ public class Customer {
         Enumeration rentals = _rentals.elements();
         String result = "Rental Record for " + getName() + "\n";
         while (rentals.hasMoreElements()) {
-            Rental each = (Rental) rentals.nextElement();
-            double thisAmount = getCharge(each);
+            Rental rental = (Rental) rentals.nextElement();
             frequentRenterPoints++;
-            if ((each.getMovie().getPriceCode() == Movie.NEW_RELEASE)
-                    && each.getDaysRented() > 1)
+            if ((rental.getMovie().getPriceCode() == Movie.NEW_RELEASE)
+                    && rental.getDaysRented() > 1)
                 frequentRenterPoints++;
-            result += "\t" + each.getMovie().getTitle() + "\t"
-                    + thisAmount + "\n";
-            totalAmount += thisAmount;
+            result += "\t" + rental.getMovie().getTitle() + "\t"
+                    + getCharge(rental) + "\n";
+            totalAmount += getCharge(rental);
         }
         result += "Amount owed is " + totalAmount + "\n";
         result += "You earned " + frequentRenterPoints
