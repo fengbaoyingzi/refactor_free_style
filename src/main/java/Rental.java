@@ -18,4 +18,11 @@ public class Rental {
     public double getCharge() {
         return _movie.getCharge(_daysRented);
     }
+
+    public int getFrequentRenterPoints(Rental rental) {
+        if ((rental.getMovie().getMovieType() == MovieType.NEW_RELEASE)
+                && rental.getDaysRented() > 1)
+            return 2;
+        return 1;
+    }
 }
