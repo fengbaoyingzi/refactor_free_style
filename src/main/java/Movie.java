@@ -1,21 +1,18 @@
 public class Movie {
-    public static final int CHILDREN = 2;
-    public static final int REGULAR = 0;
-    public static final int NEW_RELEASE = 1;
     private String _title;
-    private int _priceCode;
+    private MovieType _movieType;
 
-    public Movie(String title, int priceCode) {
+    public Movie(String title, MovieType movieType) {
         _title = title;
-        _priceCode = priceCode;
+        _movieType = movieType;
     }
 
-    public int getPriceCode() {
-        return _priceCode;
+    public MovieType getMovieType() {
+        return _movieType;
     }
 
-    public void setPriceCode(int priceCode) {
-        _priceCode = priceCode;
+    public void setMovieType(MovieType _movieType) {
+        this._movieType = _movieType;
     }
 
     public String getTitle() {
@@ -24,16 +21,16 @@ public class Movie {
 
     public double getCharge(int daysRented) {
         double result = 0;
-        switch (getPriceCode()) {
-            case Movie.REGULAR:
+        switch (_movieType) {
+            case REGULAR:
                 result += 2;
                 if (daysRented > 2)
                     result += (daysRented - 2) * 1.5;
                 break;
-            case Movie.NEW_RELEASE:
+            case NEW_RELEASE:
                 result += daysRented * 3;
                 break;
-            case Movie.CHILDREN:
+            case CHILDREN:
                 result += 1.5;
                 if (daysRented > 3)
                     result += (daysRented - 3) * 1.5;
