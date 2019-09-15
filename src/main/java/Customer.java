@@ -29,8 +29,8 @@ public class Customer {
                     && rental.getDaysRented() > 1)
                 frequentRenterPoints++;
             result += "\t" + rental.getMovie().getTitle() + "\t"
-                    + getCharge(rental) + "\n";
-            totalAmount += getCharge(rental);
+                    + rental.getCharge() + "\n";
+            totalAmount += rental.getCharge();
         }
         result += "Amount owed is " + totalAmount + "\n";
         result += "You earned " + frequentRenterPoints
@@ -38,23 +38,4 @@ public class Customer {
         return result;
     }
 
-    private double getCharge(Rental each) {
-        double result = 0;
-        switch (each.getMovie().getPriceCode()) {
-            case Movie.REGULAR:
-                result += 2;
-                if (each.getDaysRented() > 2)
-                    result += (each.getDaysRented() - 2) * 1.5;
-                break;
-            case Movie.NEW_RELEASE:
-                result += each.getDaysRented() * 3;
-                break;
-            case Movie.CHILDRENS:
-                result += 1.5;
-                if (each.getDaysRented() > 3)
-                    result += (each.getDaysRented() - 3) * 1.5;
-                break;
-        }
-        return result;
-    }
 }
