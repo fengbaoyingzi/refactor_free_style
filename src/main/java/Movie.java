@@ -35,4 +35,10 @@ public class Movie {
         return _price.getCharge(daysRented);
     }
 
+    public int getFrequentRenterPoints(int daysRented) {
+        if ((getMovieType() == MovieType.NEW_RELEASE) && daysRented > 1)
+            return 2;
+        return 1;
+    }
+
 }

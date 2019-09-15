@@ -24,7 +24,7 @@ public class Customer {
         String result = "Rental Record for " + getName() + "\n";
         while (rentals.hasMoreElements()) {
             Rental rental = (Rental) rentals.nextElement();
-            frequentRenterPoints += rental.getFrequentRenterPoints(rental);
+            frequentRenterPoints += rental.getFrequentRenterPoints();
             result += "\t" + rental.getMovie().getTitle() + "\t"
                     + rental.getCharge() + "\n";
             totalAmount += rental.getCharge();

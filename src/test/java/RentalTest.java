@@ -38,4 +38,47 @@ public class RentalTest {
         double result = rental.getCharge();
         Assert.assertEquals(result, 6.0);
     }
+
+    @Test
+    public void testGetFrequentRenterPointsForNewReleaseAndBeyondThreshold(){
+        Rental rental = new Rental(new Movie("Spider-Man", MovieType.NEW_RELEASE), 6);
+        int result = rental.getFrequentRenterPoints();
+        Assert.assertEquals(result, 2);
+    }
+
+    @Test
+    public void testGetFrequentRenterPointsForNewReleaseAndWithinThreshold(){
+        Rental rental = new Rental(new Movie("Spider-Man", MovieType.NEW_RELEASE), 1);
+        int result = rental.getFrequentRenterPoints();
+        Assert.assertEquals(result, 1);
+    }
+
+    @Test
+    public void testGetFrequentRenterPointsForChildrenAndBeyondThreshold(){
+        Rental rental = new Rental(new Movie("Spider-Man", MovieType.CHILDREN), 6);
+        int result = rental.getFrequentRenterPoints();
+        Assert.assertEquals(result, 1);
+    }
+
+    @Test
+    public void testGetFrequentRenterPointsForChildrenAndWithinThreshold(){
+        Rental rental = new Rental(new Movie("Spider-Man", MovieType.CHILDREN), 1);
+        int result = rental.getFrequentRenterPoints();
+        Assert.assertEquals(result, 1);
+    }
+
+    @Test
+    public void testGetFrequentRenterPointsForRegularAndBeyondThreshold(){
+        Rental rental = new Rental(new Movie("Spider-Man", MovieType.REGULAR), 6);
+        int result = rental.getFrequentRenterPoints();
+        Assert.assertEquals(result, 1);
+    }
+
+    @Test
+    public void testGetFrequentRenterPointsForRegularAndWithinThreshold(){
+        Rental rental = new Rental(new Movie("Spider-Man", MovieType.REGULAR), 1);
+        int result = rental.getFrequentRenterPoints();
+        Assert.assertEquals(result, 1);
+    }
+
 }
